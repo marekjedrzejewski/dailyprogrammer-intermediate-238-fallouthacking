@@ -26,8 +26,15 @@ public:
     void loadPasswords();
     void clearPasswords();
 
+    void restartGame();
+
+    // returns number of places that fits password
+    int checkWord(int index);
+    int checkWord(std::string word);
+
     int getGuessesLeft();
     std::vector<std::string> getWords();
+    int getWordsLength();
 
     void decrementGuesses();
 

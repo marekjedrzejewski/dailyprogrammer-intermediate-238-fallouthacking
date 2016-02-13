@@ -82,3 +82,25 @@ std::vector<std::string> HackEngine::getWords() {
 void HackEngine::decrementGuesses() {
     guesses_left--;
 }
+
+int HackEngine::checkWord(int index) {
+    return checkWord(words[index-1]);
+}
+
+int HackEngine::checkWord(std::string word) {
+    int matches = 0;
+    for (int i = 0; i < std::min(word.size(), password.size()); ++i) {
+        if (word[i] == password[i])
+            matches++;
+    }
+    return matches;
+}
+
+void HackEngine::restartGame() {
+    guesses_left = guesscount;
+    loadPasswords();
+}
+
+int HackEngine::getWordsLength() {
+    return password.size();
+}

@@ -36,18 +36,34 @@ void HackInterface::menu() {
 }
 
 void HackInterface::play() {
+    engine.restartGame();
+
+    std::cout << "\n";
     std::vector<std::string> words = engine.getWords();
     for (int i = 0; i < words.size(); ++i) {
         std::cout << i+1 << " - " << words[i] << "\n";
     }
+    std::cout << "\n";
+
     int choice = 0;
     while (engine.getGuessesLeft() > 0) {
-        // TODO TODO TODO. I left here.
+        std::cout << "Enter number [1-" << words.size() << "]: ";
         std::cin >> choice;
+        while (choice > words.size() || choice < 1) {
+            std::cout << "Invalid number. Enter again: ";
+            std::cin >> choice;
+        }
+        if (engine.checkWord(choice) == engine.getWordsLength()) {
+            std::cout << "CONGRATULATIONS! YOU WON! \n\n";
+            return;
+        }
+        else {
+            std::cout << engine.checkWord(choice) << "/" << engine.getWordsLength() << " characters matching.\n";
+        }
         engine.decrementGuesses();
+        std::cout << engine.getGuessesLeft() << " guesses left. ";
     }
-
-
+    std::cout << "YOU LOST! Maybe another time.\n\n";
 }
 
 void HackInterface::printMenuOptions() {
